@@ -1,0 +1,119 @@
+.App {
+  .Admin {
+    .Admin-Sidebar {
+      position: fixed;
+      height: 100vh;
+      left: 0px;
+      top: 0px;
+      z-index: 1;
+      background-color: white;
+      width: 17vw;
+
+      // Menyesuaikan tinggi navbar
+      padding-top: 5vh;
+
+      // Important | used to fix vertical scroll on sidebar buttons
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .Admin-Sidebar-Profile-Container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-bottom: 5px;
+
+        .Admin-Sidebar-Profile-Photo-Container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 17vw;
+          height: 17vw;
+
+          .Admin-Sidebar-Profile-Photo-Image {
+            width: 15vw;
+            height: 15vw;
+            border-radius: 10px;
+            background-color: #f1f1f1;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border: 2px solid #f1f1f1;
+
+            box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.53);
+            -webkit-box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.53);
+            -moz-box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.53);
+          }
+
+          .Admin-Sidebar-Profile-Photo-Image-Edit-Button {
+            position: absolute;
+            z-index: 1;
+            transform: translateY(5vw) translateX(5vw);
+            cursor: pointer;
+            padding: 5px;
+            height: 30px;
+            width: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            border-radius: 15px;
+
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+        }
+
+        .Admin-Sidebar-Profile-Info-Container {
+          width: 100%;
+          padding-left: 1vw;
+          padding-right: 1vw;
+
+          .Admin-Sidebar-Profile-Info-Name {
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            letter-spacing: 0.3px;
+          }
+
+          .Admin-Sidebar-Profile-Info-Email {
+            font-size: 13.5px;
+            line-height: 13.5px;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+          }
+        }
+      }
+
+      .Admin-Sidebar-Button-Container {
+        width: 100%;
+        overflow-y: scroll;
+        flex: 1;
+
+        button {
+          // display: block;
+          letter-spacing: 0.5px;
+          width: 100%;
+          text-align: left;
+          cursor: pointer;
+
+          &:not(:nth-child(1)) {
+            margin-top: 3px;
+          }
+
+          font-size: 16px;
+          border-radius: 0px;
+          border: none;
+          background: none;
+          padding: 3px 7px 3px 7px;
+          &:hover {
+            background-color: rgb(223, 223, 223);
+          }
+        }
+      }
+    }
+  }
+}

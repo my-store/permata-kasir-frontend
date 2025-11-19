@@ -1,0 +1,99 @@
+.User {
+  .Online-List-Trigger-Btn {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 0.5px solid rgb(160, 160, 160);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .Online-List {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    z-index: 3;
+    height: 300px;
+    width: 22vw;
+    background-color: rgb(211, 211, 211);
+
+    .Online-List-Header {
+      padding: 5px 5px 8px 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+
+      .Online-List-Header-Left {
+        .Online-List-Header-Text {
+          font-size: 16px;
+          line-height: 16px;
+        }
+      }
+
+      .Online-List-Header-Right {
+        .Online-List-Close-Trigger {
+          cursor: pointer;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+
+    .Online-List-Body {
+      overflow-y: scroll;
+      height: 267px;
+
+      .Online-List-Item {
+        display: flex;
+        align-items: center;
+        padding: 3px 5px 3px 5px;
+        border-bottom: 0.5px solid rgb(170, 170, 170);
+        &:not(:nth-last-child(1)) {
+          margin-bottom: 5px;
+        }
+
+        .Online-List-Item-Image {
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          margin-right: 5px;
+          border-radius: 50%;
+          width: 35px;
+          height: 35px;
+        }
+
+        .Online-List-Item-Info {
+          flex: 1;
+
+          .Online-List-Item-Name {
+            font-size: 14px;
+            line-height: 14px;
+            margin-bottom: 2px;
+            font-weight: bold;
+          }
+          .Online-List-Item-Tlp {
+            font-size: 13px;
+            line-height: 13px;
+          }
+        }
+
+        .Online-List-Item-Indicator {
+          width: 8px;
+          height: 8px;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+.App {
+  .User {
+    .User-Navbar {
+      width: 100%;
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      z-index: 2;
+      color: white;
+      padding: 0px 7px 0px 7px;
+      display: flex;
+      justify-content: space-between;
+
+      .User-Navbar-Title {
+        font-size: 25px;
+        width: 100%;
+      }
+
+      .User-Navbar-Link-Container {
+        display: flex;
+        align-items: center;
+
+        button {
+          line-height: 23px;
+          text-align: center;
+          cursor: pointer;
+          color: white;
+          border: 1px solid white;
+          width: 100px;
+          &:not(:nth-child(1)) {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+}

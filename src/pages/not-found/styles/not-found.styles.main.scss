@@ -1,0 +1,32 @@
+.App {
+  .NotFound {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+
+    .Title {
+      font-size: 35px;
+      line-height: 50px;
+      font-weight: bold;
+      width: 200px;
+      text-align: center;
+      border-bottom: 1px solid black;
+    }
+
+    .Subtitle {
+      font-size: 20px;
+      line-height: 40px;
+    }
+
+    .Footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 17px;
+      color: rgb(134, 134, 134);
+    }
+  }
+}

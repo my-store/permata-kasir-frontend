@@ -1,0 +1,61 @@
+.Small-Loading-Container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.First-Loading-Container {
+  width: 100%;
+  height: 100vh;
+
+  visibility: hidden;
+  opacity: 0;
+
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 3;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  .First-Loading-Box {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .Loading-Component {
+      zoom: 50%;
+
+      animation-duration: 0.4s;
+      animation-iteration-count: inherit;
+    }
+
+    .Loading-Component-Active {
+      zoom: 100%;
+      animation-name: First-Loading-Component-Anim;
+    }
+
+    @keyframes First-Loading-Component-Anim {
+      0% {
+        zoom: 50%;
+      }
+      50% {
+      }
+      100% {
+        zoom: 100%;
+      }
+    }
+  }
+}
+
+.First-Loading-Container-Active {
+  visibility: visible;
+  opacity: 1;
+}

@@ -1,0 +1,78 @@
+.App {
+  .socket-disconnected {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 10;
+
+    visibility: hidden;
+    opacity: 0;
+
+    background-color: rgba($color: #000000, $alpha: 0.5);
+
+    .socket-disconnected-box {
+      background-color: white;
+      border-radius: 7px;
+      width: 300px;
+      height: 170px;
+      overflow: hidden;
+
+      margin-top: 100px;
+
+      animation-duration: 0.5s;
+      animation-iteration-count: inherit;
+
+      .socket-disconnected-header {
+        width: 100%;
+        height: 30px;
+        background-color: maroon;
+        color: white;
+        display: flex;
+        align-items: center;
+
+        .socket-disconnected-header-title {
+          font-size: 15px;
+          line-height: 15px;
+          padding-left: 5px;
+        }
+      }
+
+      .socket-disconnected-body {
+        width: 100%;
+
+        .socket-disconnected-body-message {
+          font-size: 14px;
+          line-height: 17px;
+          padding: 5px;
+        }
+      }
+    }
+
+    .socket-disconnected-box-active {
+      animation-name: socket-disconnected-box-anim;
+      margin-top: 0px;
+    }
+
+    @keyframes socket-disconnected-box-anim {
+      from {
+        margin-top: 100px;
+      }
+      to {
+        margin-top: 0px;
+      }
+    }
+  }
+
+  .socket-disconnected-active {
+    visibility: visible;
+    opacity: 1;
+  }
+}

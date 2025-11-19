@@ -1,0 +1,111 @@
+.Admin {
+  .Admin-Config-User {
+    height: 100vh;
+    width: 23vw;
+    border-left: 1px solid #c1c1c1;
+    background-color: #fff;
+
+    position: fixed;
+    top: 0px;
+    z-index: 3;
+
+    animation-duration: 0.4s;
+    animation-iteration-count: inherit;
+
+    right: -30vw;
+    visibility: hidden;
+    opacity: 0;
+
+    .Admin-Config-User-Header {
+      width: 100%;
+      height: 5vh;
+      display: flex;
+      justify-content: space-between;
+      color: #fff;
+
+      .Admin-Config-User-Header-Text {
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+        padding-left: 7px;
+        height: 5vh;
+        line-height: 5vh;
+      }
+
+      .Admin-Config-User-Header-Close-Button {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 5vh;
+        width: 5vh;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+
+    .Admin-Config-User-Body {
+      width: 100%;
+      overflow: hidden;
+
+      .Admin-Config-User-Data {
+        width: 100%;
+        background-color: #dbdbdb;
+        padding: 2px 7px 2px 7px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .Admin-Config-User-Data-Label {
+          font-size: 14px;
+          width: 100%;
+          font-weight: 300;
+        }
+
+        input {
+          width: 30%;
+          font-size: 14px;
+          font-weight: 300;
+
+          // Global styles
+          padding: 0px 5px 0px 5px;
+
+          // Number type styles
+          &:is([type='number']) {
+            padding: 0px 0px 0px 2px;
+          }
+        }
+
+        input[type='checkbox'] {
+          height: 15px;
+          width: 15px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .Admin-Config-User-Active {
+    visibility: visible;
+    opacity: 1;
+    right: 0vw;
+
+    animation-name: Admin-Config-User-Anim;
+  }
+
+  @keyframes Admin-Config-User-Anim {
+    0% {
+      right: -30vw;
+    }
+
+    60% {
+      right: 1vw;
+    }
+
+    100% {
+      right: 0vw;
+    }
+  }
+}

@@ -1,0 +1,88 @@
+.App {
+  .User {
+    .User-Sidebar {
+      position: fixed;
+      height: 100vh;
+      left: 0px;
+      top: 0px;
+      z-index: 1;
+      background-color: white;
+
+      // Important | used to fix vertical scroll on sidebar buttons
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .User-Sidebar-Profile-Container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #c1c1c1;
+
+        .User-Sidebar-Profile-Photo-Container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .User-Sidebar-Profile-Photo-Image {
+            border-radius: 10px;
+            background: #f1f1f1;
+            // background-image: url('https://r2.erweima.ai/imgcompressed/img/compressed_e732d27392855249bb07cfd89ccf9353.webp');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+        }
+
+        .User-Sidebar-Profile-Info-Container {
+          width: 100%;
+          text-align: center;
+
+          .User-Sidebar-Profile-Info-Name {
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            letter-spacing: 0.3px;
+          }
+
+          .User-Sidebar-Profile-Info-Email {
+            font-size: 13.5px;
+            line-height: 13.5px;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+          }
+        }
+      }
+
+      .User-Sidebar-Button-Container {
+        width: 100%;
+        overflow-y: scroll;
+        flex: 1;
+
+        button {
+          // display: block;
+          letter-spacing: 0.5px;
+          width: 100%;
+          text-align: left;
+          cursor: pointer;
+
+          &:not(:nth-child(1)) {
+            margin-top: 3px;
+          }
+
+          font-size: 16px;
+          border-radius: 0px;
+          border: none;
+          background: none;
+          padding: 3px 7px 3px 7px;
+          &:hover {
+            background-color: rgb(223, 223, 223);
+          }
+        }
+      }
+    }
+  }
+}

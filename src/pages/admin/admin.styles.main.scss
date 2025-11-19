@@ -1,0 +1,136 @@
+.App {
+  .Admin {
+    // Menyesuaikan tinggi navbar
+    padding-top: 5vh;
+
+    // Menyesuaikan lebar sidebar
+    padding-left: 17vw;
+
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+    .Admin-List {
+      width: 100%;
+      height: 100vh;
+      overflow-y: scroll;
+
+      // Special styles
+      padding-top: 5vh; // Mengikuti tinggi header
+      padding-bottom: 50px; // Hanya spacer supaya Admin paling bawah terlihat full
+
+      .Admin-List-Header {
+        height: 5vh;
+        width: 83vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 7px 0px 7px;
+        background-color: #fff;
+
+        // Special styles
+        position: fixed;
+        left: 17vw; // Mengikuti lebar sidebar
+        top: 5vh; // Mengikuti tinggi navbar
+
+        .Admin-List-Header-Text {
+          font-weight: 400;
+          font-size: 16px;
+        }
+
+        .Admin-List-Header-Button-Container {
+          display: flex;
+          align-items: center;
+
+          .Admin-Navbar-Link-Sepataror {
+            width: 10px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 14px;
+          }
+
+          button {
+            font-weight: 300;
+            font-size: 14px;
+            cursor: pointer;
+
+            // Remove default styles
+            background: none;
+            outline: none;
+            border: none;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .Admin-List-Body {
+        width: 100%;
+        padding: 0px 7px 0px 7px;
+
+        .Admin-List-Item-Container {
+          width: 100%;
+          display: flex;
+
+          &:not(:nth-last-child(1)) {
+            border-bottom: 5px solid rgb(240, 240, 240);
+          }
+
+          .Admin-List-Item-Image-Container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .Admin-List-Item-Image {
+              height: 100px;
+              width: 100px;
+              background-color: #e5e5e5;
+
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-position: center;
+            }
+          }
+
+          .Admin-List-Item-Info-Container {
+            width: 100%;
+            padding: 5px;
+
+            .Admin-List-Item-Info-Nama {
+              font-weight: 400;
+              font-size: 15px;
+
+              .Admin-List-Item-Info-Online {
+                height: 10px;
+                width: 10px;
+                display: inline-block;
+                border-radius: 5px;
+                margin-right: 5px;
+              }
+            }
+
+            .Admin-List-Item-Info-Tlp {
+              font-weight: 300;
+            }
+
+            .Admin-List-Item-Info-Active-Button {
+              font-weight: 300;
+              font-size: 15px;
+              color: #fff;
+              padding: 2px 10px 2px 10px;
+              cursor: pointer;
+
+              &:hover {
+                opacity: 0.8;
+              }
+
+              // Remove default styles
+              border: none;
+              background: none;
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
