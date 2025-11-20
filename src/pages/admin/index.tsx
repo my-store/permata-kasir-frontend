@@ -16,7 +16,9 @@ import AdminSidebar from './templates/sidebar';
 import { JSONGet } from '../../libs/requests';
 import AdminNavbar from './templates/navbar';
 import AdminUserInsert from './user/insert';
+import AdminInventaris from './inventaris';
 import { serverUrl } from '../../App';
+import AdminLaporan from './laporan';
 import AdminUserList from './user';
 import AdminInsert from './insert';
 import './admin.styles.main.scss';
@@ -151,17 +153,7 @@ function AdminList() {
 
               {/* No. Tlp */}
               <p className="Admin-List-Item-Info-Tlp">{d.tlp}</p>
-
-              {/* Active status */}
-              <button
-                onClick={() => update(d.tlp, { active: !d.active })}
-                className="Admin-List-Item-Info-Active-Button"
-                style={{
-                  backgroundColor: d.active ? '#c7255bff' : '#25c789ff',
-                }}
-              >
-                {d.active ? 'Blokir' : 'Aktivasi'}
-              </button>
+              
             </div>
           </div>
         ))}
@@ -249,6 +241,22 @@ const AdminRoutes = [
     element: (props: any) => (
       <AdminGlobalTemplates {...props}>
         <AdminUserInsert />
+      </AdminGlobalTemplates>
+    ),
+  },
+  {
+    path: '/admin/inventaris',
+    element: (props: any) => (
+      <AdminGlobalTemplates {...props}>
+        <AdminInventaris />
+      </AdminGlobalTemplates>
+    ),
+  },
+  {
+    path: '/admin/laporan',
+    element: (props: any) => (
+      <AdminGlobalTemplates {...props}>
+        <AdminLaporan />
       </AdminGlobalTemplates>
     ),
   },

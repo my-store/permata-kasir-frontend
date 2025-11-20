@@ -111,23 +111,6 @@
             .Admin-List-Item-Info-Tlp {
               font-weight: 300;
             }
-
-            .Admin-List-Item-Info-Active-Button {
-              font-weight: 300;
-              font-size: 15px;
-              color: #fff;
-              padding: 2px 10px 2px 10px;
-              cursor: pointer;
-
-              &:hover {
-                opacity: 0.8;
-              }
-
-              // Remove default styles
-              border: none;
-              background: none;
-              outline: none;
-            }
           }
         }
       }

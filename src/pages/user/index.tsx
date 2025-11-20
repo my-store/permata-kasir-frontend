@@ -3,12 +3,10 @@ import { rootRemoveLoading } from '../../libs/redux/reducers/root.slice';
 import type { RootState } from '../../libs/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import UserSidebar from './templates/sidebar';
-import Footer from './templates/footer';
 import UserHeader from './templates/header';
-import Inventaris from './inventaris';
+import Footer from './templates/footer';
 import { useEffect } from 'react';
 import './user.styles.main.scss';
-import Laporan from './laporan';
 import $ from 'jquery';
 
 export interface UserGlobalStyleInterface {
@@ -74,27 +72,11 @@ const UserRoutes = [
     path: '/user',
     element: (props: any) => {
       return (
-        <UserGlobalTemplates socketConnect={props.socketConnect}>
+        <UserGlobalTemplates {...props}>
           <UserHome />
         </UserGlobalTemplates>
       );
     },
-  },
-  {
-    path: '/user/inventaris',
-    element: (props: any) => (
-      <UserGlobalTemplates socketConnect={props.socketConnect}>
-        <Inventaris />
-      </UserGlobalTemplates>
-    ),
-  },
-  {
-    path: '/user/laporan',
-    element: (props: any) => (
-      <UserGlobalTemplates socketConnect={props.socketConnect}>
-        <Laporan />
-      </UserGlobalTemplates>
-    ),
   },
 ];
 

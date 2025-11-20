@@ -1,31 +1,31 @@
-import { getLoginCredentials } from './libs/credentials';
-import type { RootState } from './libs/redux/store';
-import { FirstLoading } from './components/loading';
-import { io, type Socket } from 'socket.io-client';
-import Unauthorized from './pages/unauthorized';
-import { useSelector } from 'react-redux';
-import NotFound from './pages/not-found';
-import { findDeepUrl } from './libs/url';
-import AdminRoutes from './pages/admin';
-import Alert from './components/alert';
-import UserRoutes from './pages/user';
-import { Log } from './libs/console';
-import Login from './pages/login';
+import { getLoginCredentials } from "./libs/credentials";
+import type { RootState } from "./libs/redux/store";
+import { FirstLoading } from "./components/loading";
+import { io, type Socket } from "socket.io-client";
+import Unauthorized from "./pages/unauthorized";
+import { useSelector } from "react-redux";
+import NotFound from "./pages/not-found";
+import { findDeepUrl } from "./libs/url";
+import AdminRoutes from "./pages/admin";
+import Alert from "./components/alert";
+import UserRoutes from "./pages/user";
+import { Log } from "./libs/console";
+import Login from "./pages/login";
 import {
   BrowserRouter,
   Navigate,
   Outlet,
   Routes,
   Route,
-} from 'react-router-dom';
-import './App.scss';
+} from "react-router-dom";
+import "./App.scss";
 
 export interface ProtectedLayoutInterface {
   role: string;
 }
 
 // Server URL configuration must be matched with api/.env file
-export const serverUrl: string = 'http://localhost:5000';
+export const serverUrl: string = "http://localhost:5000";
 
 export let socket: Socket;
 
@@ -42,7 +42,7 @@ function ProtectedRoutes({ role }: ProtectedLayoutInterface) {
     return <Navigate to={`/?redirect=${deepUrl}`} replace />;
 
   // Unauthorized, signed-in but requested URL is not match with its login role
-  const unauthorized_url: string = '/unauthorized';
+  const unauthorized_url: string = "/unauthorized";
   if (loginState.loginRole != role)
     return <Navigate to={unauthorized_url} replace />;
 
@@ -69,20 +69,20 @@ export default function App() {
     | of 'isLogin' is false.
     | If not connected to the server will never redirected.
     */
-    socket.on('connect', () => {
-      Log('Socket is now connected');
+    socket.on("connect", () => {
+      Log("Socket is now connected");
 
       // Broadcast to other, that i'm is online now
       const { role, data } = getLoginCredentials();
-      socket.emit('online', { tlp: data.tlp, role });
+      socket.emit("online", { tlp: data.tlp, role });
 
       // Return the next logic to callback
       callback();
     });
 
     // When socket is disconected
-    socket.on('disconnect', () => {
-      Error('Socket disconnected');
+    socket.on("disconnect", () => {
+      Error("Socket disconnected");
     });
   }
 

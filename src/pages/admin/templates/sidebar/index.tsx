@@ -4,22 +4,23 @@ import {
   adminTemplatesSidebarUpdateProfileNama,
   adminTemplatesSidebarUpdateProfileOpen,
   adminTemplatesSidebarUpdateProfileTlp,
-} from '../../../../libs/redux/reducers/admin/admin.templates.sidebar.update-profile.slice';
-import { adminSidebarSetAdminData } from '../../../../libs/redux/reducers/admin/admin.templates.sidebar';
-import { rootOpenLoading } from '../../../../libs/redux/reducers/root.slice';
-import { logout } from '../../../../libs/redux/reducers/login.slice';
-import type { RootState } from '../../../../libs/redux/store';
-import './styles/admin.templates.sidebar.styles.main.scss';
-import { useSelector, useDispatch } from 'react-redux';
-import type { AdminGlobalStyleInterface } from '../..';
-import { serverUrl, socket } from '../../../../App';
-import { useNavigate } from 'react-router-dom';
-import { CiEdit } from 'react-icons/ci';
+} from "../../../../libs/redux/reducers/admin/admin.templates.sidebar.update-profile.slice";
+import { adminSidebarSetAdminData } from "../../../../libs/redux/reducers/admin/admin.templates.sidebar";
+import { rootOpenLoading } from "../../../../libs/redux/reducers/root.slice";
+import { logout } from "../../../../libs/redux/reducers/login.slice";
+import type { RootState } from "../../../../libs/redux/store";
+import "./styles/admin.templates.sidebar.styles.main.scss";
+import { useSelector, useDispatch } from "react-redux";
+import type { AdminGlobalStyleInterface } from "../..";
+import { serverUrl, socket } from "../../../../App";
+import { useNavigate } from "react-router-dom";
+import { CiEdit } from "react-icons/ci";
 import {
   removeLoginCredentials,
   getLoginCredentials,
-} from '../../../../libs/credentials';
-import { useEffect } from 'react';
+} from "../../../../libs/credentials";
+import { useEffect } from "react";
+import $ from "jquery";
 
 interface AdminSidebarProps {
   globalStyle: AdminGlobalStyleInterface;
@@ -29,13 +30,10 @@ export default function AdminSidebar(props: AdminSidebarProps) {
   const { globalStyle } = props;
 
   const sidebarState = useSelector(
-    (state: RootState) => state.admin_templates_sidebar,
+    (state: RootState) => state.admin_templates_sidebar
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // Colors
-  const { primaryColor } = globalStyle;
 
   function load() {
     const { data } = getLoginCredentials();
@@ -71,10 +69,30 @@ export default function AdminSidebar(props: AdminSidebarProps) {
       dispatch(adminTemplatesSidebarUpdateProfileTlp(adminData.tlp)); // Tlp
       dispatch(
         adminTemplatesSidebarUpdateProfileFoto(
-          serverUrl + '/static' + sidebarState.adminData.foto,
-        ),
+          serverUrl + "/static" + sidebarState.adminData.foto
+        )
       );
     }, 250);
+  }
+
+  function navigateTo(route: string, className: string) {
+    // Sidebar button class
+    const sidebarButtonActiveClass = "Admin-Sidebar-Button-Active";
+
+    // Remove all active class first
+    const sidebarButtons = $(
+      ".Admin-Sidebar .Admin-Sidebar-Button-Container button"
+    );
+    for (let sb of sidebarButtons) {
+      $(sb).removeClass(sidebarButtonActiveClass);
+    }
+
+    // Set active class
+    const elm = $(`.${className}`);
+    elm.addClass(sidebarButtonActiveClass);
+
+    // Update page
+    navigate(route);
   }
 
   useEffect(() => {
@@ -91,7 +109,9 @@ export default function AdminSidebar(props: AdminSidebarProps) {
           <div
             className="Admin-Sidebar-Profile-Photo-Image"
             style={{
-              backgroundImage: `url(${serverUrl + '/static' + sidebarState.adminData.foto})`,
+              backgroundImage: `url(${
+                serverUrl + "/static" + sidebarState.adminData.foto
+              })`,
             }}
           ></div>
           <div
@@ -114,41 +134,51 @@ export default function AdminSidebar(props: AdminSidebarProps) {
       <div className="Admin-Sidebar-Button-Container">
         {/* Homepage */}
         <button
-          style={{ color: primaryColor }}
-          onClick={() => navigate('/admin')}
+          onClick={() => navigateTo("/admin", "admin-sidebar-homepage")}
+          className="admin-sidebar-homepage"
         >
           Beranda
         </button>
 
         {/* Admin */}
         <button
-          style={{ color: primaryColor }}
-          onClick={() => navigate('/admin/admin')}
+          onClick={() => navigateTo("/admin/admin", "admin-sidebar-admin-list")}
+          className="admin-sidebar-admin-list"
         >
           Admin
         </button>
 
         {/* User */}
         <button
-          style={{ color: primaryColor }}
-          onClick={() => navigate('/admin/user')}
+          onClick={() => navigateTo("/admin/user", "admin-sidebar-user-list")}
+          className="admin-sidebar-user-list"
         >
           User
         </button>
 
         {/* Sample Buttons */}
-        <button style={{ color: primaryColor }}>Inventaris</button>
-        <button style={{ color: primaryColor }}>Bank Ops BKK</button>
-        <button style={{ color: primaryColor }}>Bank Jateng</button>
-        <button style={{ color: primaryColor }}>Modal</button>
-        <button style={{ color: primaryColor }}>Operasional</button>
-        <button style={{ color: primaryColor }}>Laba Rugi</button>
-        <button style={{ color: primaryColor }}>Micro Finance</button>
+        <button
+          onClick={() =>
+            navigateTo("/admin/inventaris", "admin-sidebar-inventaris")
+          }
+          className="admin-sidebar-inventaris"
+        >
+          Inventaris
+        </button>
+        <button
+          onClick={() => navigateTo("/admin/laporan", "admin-sidebar-laporan")}
+          className="admin-sidebar-laporan"
+        >
+          Laba Rugi & Neraca
+        </button>
+        <button>Bank Ops BKK</button>
+        <button>Bank Jateng</button>
+        <button>Modal</button>
+        <button>Operasional</button>
+        <button>Micro Finance</button>
 
         {/* Logout */}
-        <button style={{ color: primaryColor }} onClick={prepareLogout}>
-          Logout
-        </button>
+        <button onClick={prepareLogout}>Logout</button>
       </div>
     </div>
   );

@@ -103,18 +103,6 @@ export default function UserSidebar(props: UserSidebarProps) {
         </button>
         <button
           style={{ color: primaryColor }}
-          onClick={() => navigate('/user/inventaris')}
-        >
-          Inventaris
-        </button>
-        <button
-          style={{ color: primaryColor }}
-          onClick={() => navigate('/user/laporan')}
-        >
-          Laporan
-        </button>
-        <button
-          style={{ color: primaryColor }}
           onClick={(e) => {
             e.preventDefault();
             prepareLogout();
