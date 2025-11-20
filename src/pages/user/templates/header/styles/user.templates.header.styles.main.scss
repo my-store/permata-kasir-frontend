@@ -11,9 +11,10 @@
       display: flex;
       justify-content: space-between;
 
-      .User-Navbar-Title {
-        font-size: 25px;
-        width: 100%;
+      .User-Navbar-Logo {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
       }
 
       .User-Navbar-Link-Container {

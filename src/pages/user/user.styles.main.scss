@@ -1,12 +1,130 @@
 .App {
   .User {
-    // .Banner {
-    //   width: 100%;
-    //   min-height: 300px;
-    //   background-image: url('https://www.shutterstock.com/image-photo/saving-money-concept-hand-putting-600nw-1887699688.jpg');
-    //   background-position: center;
-    //   background-repeat: no-repeat;
-    //   background-size: cover;
-    // }
+    overflow: hidden;
+    height: 100vh;
+    .Kasir {
+      width: 100%;
+
+      .Judul {
+        // text-align: center;
+        font-size: 30px;
+      }
+
+      .Keranjang {
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+
+        .Judul-Produk {
+          display: flex;
+          align-items: center;
+          padding: 5px 15px 5px 10px;
+          background-color: #d6d6d6;
+
+          .Nama {
+            width: 100%;
+          }
+          .Jumlah-Pembelian {
+            width: 100px;
+            text-align: center;
+          }
+          .Harga {
+            width: 150px;
+            text-align: right;
+          }
+        }
+
+        .Daftar-Produk {
+          width: 100%;
+          height: 450px;
+          overflow-y: scroll;
+
+          .Produk {
+            width: 100%;
+            height: 50px;
+            border: 1px solid rgb(179, 179, 179);
+            border-radius: 5px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+
+            &:is(.Produk:nth-last-child(1)) {
+              margin-bottom: 5px;
+            }
+
+            .Nama {
+              width: 100%;
+              font-size: 18px;
+            }
+
+            .Jumlah-Pembelian {
+              font-size: 18px;
+              width: 100px;
+              text-align: center;
+              // background-color: rgb(255, 242, 199);
+            }
+
+            .Harga {
+              font-size: 18px;
+              width: 150px;
+              text-align: right;
+              // background-color: rgb(199, 255, 250);
+            }
+          }
+
+          .Kosong {
+            width: 100%;
+            line-height: 450px;
+            text-align: center;
+            font-size: 14px;
+          }
+        }
+
+        .Pencarian {
+          width: 100%;
+          height: 40px;
+          padding: 0px 5px 0px 5px;
+          margin: 5px 0px 8px 0px;
+          outline: none;
+        }
+
+        .Daftar-Tombol-Total {
+          display: flex;
+          align-items: center;
+
+          button {
+            font-size: 18px;
+            cursor: pointer;
+            color: white;
+            outline: none;
+            border: none;
+            height: 40px;
+            border-radius: 5px;
+
+            &:hover {
+              opacity: 0.9;
+            }
+          }
+
+          .Bayar {
+            width: 250px;
+          }
+
+          .Batal {
+            width: 100px;
+            margin-left: 5px;
+            margin-right: 12px;
+          }
+
+          .Total {
+            width: 100%;
+            text-align: right;
+            font-size: 30px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
   }
 }

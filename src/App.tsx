@@ -25,7 +25,7 @@ export interface ProtectedLayoutInterface {
 }
 
 // Server URL configuration must be matched with api/.env file
-export const serverUrl: string = "http://localhost:5000";
+export const serverUrl: string = "http://192.168.1.104:5000";
 
 export let socket: Socket;
 

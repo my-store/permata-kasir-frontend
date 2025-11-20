@@ -1,17 +1,17 @@
-import { userSidebarSetUserData } from '../../../../libs/redux/reducers/user/user.sidebar.slice';
-import { rootOpenLoading } from '../../../../libs/redux/reducers/root.slice';
-import { logout } from '../../../../libs/redux/reducers/login.slice';
-import type { RootState } from '../../../../libs/redux/store';
-import './styles/user.templates.sidebar.styles.main.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import type { UserGlobalStyleInterface } from '../..';
-import { serverUrl, socket } from '../../../../App';
-import { useNavigate } from 'react-router';
+import { userSidebarSetUserData } from "../../../../libs/redux/reducers/user/user.sidebar.slice";
+import { rootOpenLoading } from "../../../../libs/redux/reducers/root.slice";
+import { logout } from "../../../../libs/redux/reducers/login.slice";
+import type { RootState } from "../../../../libs/redux/store";
+import "./styles/user.templates.sidebar.styles.main.scss";
+import { useDispatch, useSelector } from "react-redux";
+import type { UserGlobalStyleInterface } from "../..";
+import { serverUrl, socket } from "../../../../App";
+import { useNavigate } from "react-router";
 import {
   removeLoginCredentials,
   getLoginCredentials,
-} from '../../../../libs/credentials';
-import { useEffect } from 'react';
+} from "../../../../libs/credentials";
+import { useEffect } from "react";
 
 interface UserSidebarProps {
   globalStyle: UserGlobalStyleInterface;
@@ -80,7 +80,9 @@ export default function UserSidebar(props: UserSidebarProps) {
             style={{
               width: `${sidebarWidth - 15}px`,
               height: `${sidebarWidth - 15}px`,
-              backgroundImage: `url(${serverUrl + '/static' + sidebarState.userData.foto})`,
+              backgroundImage: `url(${
+                serverUrl + "/static" + sidebarState.userData.foto
+              })`,
             }}
           ></div>
         </div>
@@ -97,10 +99,12 @@ export default function UserSidebar(props: UserSidebarProps) {
       <div className="User-Sidebar-Button-Container">
         <button
           style={{ color: primaryColor }}
-          onClick={() => navigate('/user')}
+          onClick={() => navigate("/user")}
         >
           Beranda
         </button>
+        <button style={{ color: primaryColor }}>Produk</button>
+        <button style={{ color: primaryColor }}>Transaksi</button>
         <button
           style={{ color: primaryColor }}
           onClick={(e) => {
