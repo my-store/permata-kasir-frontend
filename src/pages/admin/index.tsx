@@ -1,28 +1,32 @@
+import { adminListSetListData } from "../../libs/redux/reducers/admin/admin.list.slice";
+import { openAlert } from "../../libs/redux/reducers/components.alert.slice";
+import AdminSidebarUpdateProfile from "./templates/sidebar/update-profile";
+import { getLoginCredentials, refreshToken } from "../../libs/credentials";
+import { rootRemoveLoading } from "../../libs/redux/reducers/root.slice";
 import {
   adminConfigAdminOpened,
   adminConfigUserOpened,
-} from '../../libs/redux/reducers/admin/admin.config.slice';
-import { adminListSetListData } from '../../libs/redux/reducers/admin/admin.list.slice';
-import { openAlert } from '../../libs/redux/reducers/components.alert.slice';
-import AdminSidebarUpdateProfile from './templates/sidebar/update-profile';
-import { getLoginCredentials, refreshToken } from '../../libs/credentials';
-import { rootRemoveLoading } from '../../libs/redux/reducers/root.slice';
-import AdminConfigAdmin from './config/admin.config.admin';
-import AdminConfigUser from './config/admin.config.user';
-import type { RootState } from '../../libs/redux/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import AdminSidebar from './templates/sidebar';
-import { JSONGet } from '../../libs/requests';
-import AdminNavbar from './templates/navbar';
-import AdminUserInsert from './user/insert';
-import AdminInventaris from './inventaris';
-import { serverUrl } from '../../App';
-import AdminLaporan from './laporan';
-import AdminUserList from './user';
-import AdminInsert from './insert';
-import './admin.styles.main.scss';
-import { useEffect } from 'react';
+} from "../../libs/redux/reducers/admin/admin.config.slice";
+import {
+  AdminOnlineListTrigger,
+  AdminOnlineList,
+} from "./templates/online-list";
+import AdminConfigAdmin from "./config/admin.config.admin";
+import AdminConfigUser from "./config/admin.config.user";
+import type { RootState } from "../../libs/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import AdminSidebar from "./templates/sidebar";
+import { JSONGet } from "../../libs/requests";
+import AdminNavbar from "./templates/navbar";
+import AdminUserInsert from "./user/insert";
+import AdminInventaris from "./inventaris";
+import { serverUrl } from "../../App";
+import AdminLaporan from "./laporan";
+import AdminUserList from "./user";
+import AdminInsert from "./insert";
+import "./admin.styles.main.scss";
+import { useEffect } from "react";
 
 export interface AdminGlobalStyleInterface {
   primaryColor: string;
@@ -30,8 +34,8 @@ export interface AdminGlobalStyleInterface {
 }
 
 const globalStyle: AdminGlobalStyleInterface = {
-  primaryColor: 'rgb(50, 101, 167)',
-  secondaryColor: 'rgb(33, 76, 131)',
+  primaryColor: "rgb(50, 101, 167)",
+  secondaryColor: "rgb(33, 76, 131)",
 };
 
 function AdminHome() {
@@ -74,10 +78,10 @@ function AdminList() {
         // Terminate task and display error message
         return dispatch(
           openAlert({
-            type: 'Error',
-            title: 'Gagal mengambil data',
+            type: "Error",
+            title: "Gagal mengambil data",
             body: req.message,
-          }),
+          })
         );
       }
 
@@ -90,11 +94,6 @@ function AdminList() {
 
     dispatch(adminListSetListData(req));
   }
-
-  /* ----------------- UPDATE DATA HANDLER -----------------
-  |  1. Activate or Deactivate
-  */
-  async function update(tlp: string, newData: any) {}
 
   useEffect(
     () => {
@@ -114,7 +113,7 @@ function AdminList() {
 
       // Urutkan data berdasarkan terbaru atau terlama
       config.list.shortByNew,
-    ],
+    ]
   );
 
   return (
@@ -122,7 +121,7 @@ function AdminList() {
       <div className="Admin-List-Header">
         <p className="Admin-List-Header-Text">Daftar Admin</p>
         <div className="Admin-List-Header-Button-Container">
-          <button onClick={() => navigate('/admin/insert')}>Input</button>
+          <button onClick={() => navigate("/admin/insert")}>Input</button>
           <p className="Admin-Navbar-Link-Sepataror">.</p>
           <button onClick={() => dispatch(adminConfigAdminOpened(true))}>
             Pengaturan
@@ -136,7 +135,7 @@ function AdminList() {
             <div className="Admin-List-Item-Image-Container">
               <div
                 style={{
-                  backgroundImage: `url(${serverUrl + '/static' + d.foto})`,
+                  backgroundImage: `url(${serverUrl + "/static" + d.foto})`,
                 }}
                 className="Admin-List-Item-Image"
               ></div>
@@ -146,14 +145,13 @@ function AdminList() {
               <p className="Admin-List-Item-Info-Nama">
                 <span
                   className="Admin-List-Item-Info-Online"
-                  style={{ backgroundColor: d.online ? 'green' : 'red' }}
+                  style={{ backgroundColor: d.online ? "green" : "red" }}
                 ></span>
                 {d.nama}
               </p>
 
               {/* No. Tlp */}
               <p className="Admin-List-Item-Info-Tlp">{d.tlp}</p>
-              
             </div>
           </div>
         ))}
@@ -167,6 +165,9 @@ function AdminList() {
 
 function AdminGlobalTemplates({ children, socketConnect }: any) {
   const rootState = useSelector((state: RootState) => state.root);
+  const onlineState = useSelector(
+    (state: RootState) => state.admin_online_list
+  );
   const dispatch = useDispatch();
 
   function socketListener() {}
@@ -197,6 +198,10 @@ function AdminGlobalTemplates({ children, socketConnect }: any) {
       <AdminSidebar globalStyle={globalStyle} />
       <AdminSidebarUpdateProfile globalStyle={globalStyle} />
 
+      {/* Online list */}
+      {onlineState.opened && <AdminOnlineList globalStyle={globalStyle} />}
+      <AdminOnlineListTrigger />
+
       {/* Page */}
       {children}
     </div>
@@ -205,7 +210,7 @@ function AdminGlobalTemplates({ children, socketConnect }: any) {
 
 const AdminRoutes = [
   {
-    path: '/admin',
+    path: "/admin",
     element: (props: any) => (
       <AdminGlobalTemplates {...props}>
         <AdminHome />
@@ -213,7 +218,7 @@ const AdminRoutes = [
     ),
   },
   {
-    path: '/admin/admin',
+    path: "/admin/admin",
     element: (props: any) => (
       <AdminGlobalTemplates {...props}>
         <AdminList />
@@ -221,7 +226,7 @@ const AdminRoutes = [
     ),
   },
   {
-    path: '/admin/admin/insert',
+    path: "/admin/admin/insert",
     element: (props: any) => (
       <AdminGlobalTemplates {...props}>
         <AdminInsert />
@@ -229,7 +234,7 @@ const AdminRoutes = [
     ),
   },
   {
-    path: '/admin/user',
+    path: "/admin/user",
     element: (props: any) => (
       <AdminGlobalTemplates {...props}>
         <AdminUserList />
@@ -237,7 +242,7 @@ const AdminRoutes = [
     ),
   },
   {
-    path: '/admin/user/insert',
+    path: "/admin/user/insert",
     element: (props: any) => (
       <AdminGlobalTemplates {...props}>
         <AdminUserInsert />
@@ -245,7 +250,7 @@ const AdminRoutes = [
     ),
   },
   {
-    path: '/admin/inventaris',
+    path: "/admin/inventaris",
     element: (props: any) => (
       <AdminGlobalTemplates {...props}>
         <AdminInventaris />
@@ -253,7 +258,7 @@ const AdminRoutes = [
     ),
   },
   {
-    path: '/admin/laporan',
+    path: "/admin/laporan",
     element: (props: any) => (
       <AdminGlobalTemplates {...props}>
         <AdminLaporan />

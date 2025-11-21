@@ -1,10 +1,8 @@
-import { UserOnlineList, UserOnlineListTrigger } from "./templates/online-list";
 import { rootRemoveLoading } from "../../libs/redux/reducers/root.slice";
-import type { RootState } from "../../libs/redux/store";
-import { useDispatch, useSelector } from "react-redux";
 import UserSidebar from "./templates/sidebar";
 import { addComma } from "../../libs/string";
 import UserHeader from "./templates/header";
+import { useDispatch } from "react-redux";
 import Footer from "./templates/footer";
 import { useEffect } from "react";
 import "./user.styles.main.scss";
@@ -90,7 +88,6 @@ function UserHome() {
 }
 
 function UserGlobalTemplates({ children, socketConnect }: any) {
-  const onlineState = useSelector((state: RootState) => state.user_onlineList);
   const dispatch = useDispatch();
 
   function socketListener() {}
@@ -121,8 +118,6 @@ function UserGlobalTemplates({ children, socketConnect }: any) {
     >
       <UserHeader globalStyle={globalStyle} />
       <UserSidebar globalStyle={globalStyle} />
-      {onlineState.opened && <UserOnlineList globalStyle={globalStyle} />}
-      <UserOnlineListTrigger />
       {children}
       <Footer globalStyle={globalStyle} />
     </div>
