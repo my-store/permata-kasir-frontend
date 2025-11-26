@@ -1,10 +1,12 @@
-import { rootRemoveLoading } from '../../libs/redux/reducers/root.slice';
-import './styles/unauthorized.styles.main.scss';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { rootRemoveLoading } from "../../libs/redux/reducers/root.slice";
+import "./styles/unauthorized.styles.main.scss";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function Unauthorized() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function load() {
     // Remove loading animation after 3 second
@@ -24,6 +26,10 @@ export default function Unauthorized() {
         <br />
         (+62) 823-2438-0852
       </p>
+
+      <button className="Back-Button" onClick={() => navigate("/")}>
+        Back
+      </button>
     </div>
   );
 }

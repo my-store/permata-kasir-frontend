@@ -1,14 +1,14 @@
 const DefaultHeaders: any = {
-  'Content-Type': 'application/json; charset=utf-8',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Credentials': 'true',
-  Connection: 'keep-alive',
-  'Keep-Alive': 'timeout=5',
+  "Content-Type": "application/json; charset=utf-8",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Credentials": "true",
+  Connection: "keep-alive",
+  "Keep-Alive": "timeout=5",
 };
 
 export async function JSONGet(
   url: string,
-  options?: RequestInit,
+  options?: RequestInit
 ): Promise<any> {
   const req = await fetch(url, {
     headers: {
@@ -22,10 +22,10 @@ export async function JSONGet(
 
 export async function JSONPatch(
   url: string,
-  options?: RequestInit,
+  options?: RequestInit
 ): Promise<any> {
   const req = await fetch(url, {
-    method: 'PATCH',
+    method: "PATCH",
     headers: {
       ...DefaultHeaders,
       ...options?.headers,
@@ -38,10 +38,10 @@ export async function JSONPatch(
 
 export async function JSONPost(
   url: string,
-  options?: RequestInit,
+  options?: RequestInit
 ): Promise<any> {
   const req = await fetch(url, {
-    method: 'POST',
+    method: "POST",
     headers: {
       ...DefaultHeaders,
       ...options?.headers,
@@ -54,10 +54,10 @@ export async function JSONPost(
 
 export async function FormPost(
   url: string,
-  options?: RequestInit,
+  options?: RequestInit
 ): Promise<any> {
   const req = await fetch(url, {
-    method: 'POST',
+    method: "POST",
     headers: {
       // In react (browser app) is not need headers, but on other app like react-native is needed.
 
@@ -72,10 +72,10 @@ export async function FormPost(
 
 export async function FormPatch(
   url: string,
-  options?: RequestInit,
+  options?: RequestInit
 ): Promise<any> {
   const req = await fetch(url, {
-    method: 'PATCH',
+    method: "PATCH",
     headers: {
       // In react (browser app) is not need headers, but on other app like react-native is needed.
 

@@ -1,30 +1,30 @@
-import { adminConfigUserInsertAutoActivate } from '../../../../libs/redux/reducers/admin/admin.config.slice';
-import { openAlert } from '../../../../libs/redux/reducers/components.alert.slice';
+import { adminConfigUserInsertAutoActivate } from "../../../../libs/redux/reducers/admin/admin.config.slice";
+import { openAlert } from "../../../../libs/redux/reducers/components.alert.slice";
 import {
   userInsertSetPassword,
   userInsertSetWait,
   userInsertSetFoto,
   userInsertSetNama,
   userInsertSetTlp,
-} from '../../../../libs/redux/reducers/admin/user.insert.slice';
-import type { RootState } from '../../../../libs/redux/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { FormPost } from '../../../../libs/requests';
-import './styles/admin.user.insert.styles.main.scss';
-import { useNavigate } from 'react-router-dom';
-import { serverUrl } from '../../../../App';
+} from "../../../../libs/redux/reducers/admin/user.insert.slice";
+import type { RootState } from "../../../../libs/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { FormPost } from "../../../../libs/requests";
+import "./styles/admin.user.insert.styles.main.scss";
+import { useNavigate } from "react-router-dom";
+import { serverUrl } from "../../../../App";
 import {
   getLoginCredentials,
   refreshToken,
-} from '../../../../libs/credentials';
-import $ from 'jquery';
+} from "../../../../libs/credentials";
+import $ from "jquery";
 
 export default function UserInsert() {
   const insertState = useSelector(
-    (state: RootState) => state.admin_user_insert,
+    (state: RootState) => state.admin_user_insert
   );
   const configState = useSelector(
-    (state: RootState) => state.admin_config.user.insert,
+    (state: RootState) => state.admin_config.user.insert
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,10 +39,10 @@ export default function UserInsert() {
     // Show alert box
     dispatch(
       openAlert({
-        type: 'Error',
-        title: 'Gagal menambahkan user baru',
+        type: "Error",
+        title: "Gagal menambahkan user baru",
         body: msg,
-      }),
+      })
     );
 
     // Close from insert-wait state
@@ -58,26 +58,27 @@ export default function UserInsert() {
 
     const { nama, tlp, password, foto } = insertState;
 
-    if (nama.length < 1) return failed('Silahkan isi nama user');
-    if (tlp.length < 1) return failed('Silahkan isi no tlp user');
-    if (password.length < 1) return failed('Silahkan isi password user');
-    if (foto.length < 1) return failed('Silahkan pilih foto user');
+    if (nama.length < 1) return failed("Silahkan isi nama user");
+    if (tlp.length < 1) return failed("Silahkan isi no tlp user");
+    if (password.length < 1) return failed("Silahkan isi password user");
+    if (foto.length < 1) return failed("Silahkan pilih foto user");
 
     const imageInput: any = $(
-      '.Admin-User-Insert-Form-Image input[name="foto"]',
+      '.Admin-User-Insert-Form-Image input[name="foto"]'
     )[0];
 
     const formData = new FormData();
-    formData.append('nama', nama);
-    formData.append('tlp', tlp);
-    formData.append('password', password);
-    formData.append('foto', imageInput.files[0]);
+    formData.append("nama", nama);
+    formData.append("tlp", tlp);
+    formData.append("password", password);
+    formData.append("active", configState.autoActivate ? "1" : "0");
+    formData.append("foto", imageInput.files[0]);
 
     // Get login data
     const { access_token, data } = getLoginCredentials();
 
     // Insert data
-    const req = await FormPost('/api/user', {
+    const req = await FormPost("/api/user", {
       headers: { Authorization: `Bearer ${access_token}` },
       body: formData,
     });
@@ -108,24 +109,24 @@ export default function UserInsert() {
     // Show success message
     dispatch(
       openAlert({
-        type: 'Success',
-        title: 'User baru berhasil ditambahkan',
+        type: "Success",
+        title: "User baru berhasil ditambahkan",
         body: `Nama: ${nama}\nTlp: ${tlp}`,
-      }),
+      })
     );
 
     // Reset form
     resetForm();
 
     // Redirect to homepage
-    navigate('/admin/user');
+    navigate("/admin/user");
   }
 
   function resetForm() {
-    dispatch(userInsertSetNama(''));
-    dispatch(userInsertSetTlp(''));
-    dispatch(userInsertSetPassword(''));
-    dispatch(userInsertSetFoto(''));
+    dispatch(userInsertSetNama(""));
+    dispatch(userInsertSetTlp(""));
+    dispatch(userInsertSetPassword(""));
+    dispatch(userInsertSetFoto(""));
 
     // Close from insert-wait state
     dispatch(userInsertSetWait(false));
@@ -200,11 +201,11 @@ export default function UserInsert() {
               className="Admin-User-Insert-Form-Image-Preview"
               style={{
                 backgroundImage:
-                  insertState.foto.length > 0 ? `url(${insertState.foto})` : '',
+                  insertState.foto.length > 0 ? `url(${insertState.foto})` : "",
               }}
               onClick={() => {
                 const imageInput = $(
-                  ".Admin-User-Insert-Form-Image input[name='foto']",
+                  ".Admin-User-Insert-Form-Image input[name='foto']"
                 )[0];
                 imageInput.click();
               }}
@@ -228,7 +229,7 @@ export default function UserInsert() {
                 resetForm();
 
                 // Redirect to homepage
-                navigate('/admin/user');
+                navigate("/admin/user");
               }}
             >
               Batal
