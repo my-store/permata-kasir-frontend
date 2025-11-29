@@ -6,12 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
-    // proxy: {
-    //   "/api": {
-    //     target: "http://localhost:5000", // Local Nest app
-    //     changeOrigin: true,
-    //   },
-    // },
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000", // Local Nest app
+        changeOrigin: true,
+      },
+    },
   },
   build: {
     outDir: "../permata-kasir-backend/dist/client",
