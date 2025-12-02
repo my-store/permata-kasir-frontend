@@ -15,5 +15,6 @@ export default defineConfig({
   },
   build: {
     outDir: "../permata-kasir-backend/dist/client",
+    emptyOutDir: true,
   },
 });
