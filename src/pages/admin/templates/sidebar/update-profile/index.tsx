@@ -5,27 +5,27 @@ import {
   adminTemplatesSidebarUpdateProfileFoto,
   adminTemplatesSidebarUpdateProfileOpen,
   adminTemplatesSidebarUpdateProfileWait,
-} from '../../../../../libs/redux/reducers/admin/admin.templates.sidebar.update-profile.slice';
-import { adminSidebarSetAdminData } from '../../../../../libs/redux/reducers/admin/admin.templates.sidebar';
-import { openAlert } from '../../../../../libs/redux/reducers/components.alert.slice';
-import { rootOpenLoading } from '../../../../../libs/redux/reducers/root.slice';
-import './styles/admin.templates.sidebar.update-profile.styles.main.scss';
-import { logout } from '../../../../../libs/redux/reducers/login.slice';
-import { FormPatch, JSONPost } from '../../../../../libs/requests';
-import type { RootState } from '../../../../../libs/redux/store';
-import type { AdminGlobalStyleInterface } from '../../..';
-import { useDispatch, useSelector } from 'react-redux';
-import { serverUrl, socket } from '../../../../../App';
-import { MdClose } from 'react-icons/md';
-import $ from 'jquery';
+} from "../../../../../libs/redux/reducers/admin/admin.templates.sidebar.update-profile.slice";
+import { adminSidebarSetAdminData } from "../../../../../libs/redux/reducers/admin/admin.templates.sidebar";
+import { openAlert } from "../../../../../libs/redux/reducers/components.alert.slice";
+import { rootOpenLoading } from "../../../../../libs/redux/reducers/root.slice";
+import "./styles/admin.templates.sidebar.update-profile.styles.main.scss";
+import { logout } from "../../../../../libs/redux/reducers/login.slice";
+import { FormPatch, JSONPost } from "../../../../../libs/requests";
+import type { RootState } from "../../../../../libs/redux/store";
+import type { AdminGlobalStyleInterface } from "../../..";
+import { useDispatch, useSelector } from "react-redux";
+import { serverUrl, socket } from "../../../../../App";
+import { MdClose } from "react-icons/md";
+import $ from "jquery";
 import {
   removeLoginCredentials,
   getLoginCredentials,
   setLoginCredentials,
   refreshToken,
   getUserData,
-} from '../../../../../libs/credentials';
-import type { CSSProperties } from 'react';
+} from "../../../../../libs/credentials";
+import type { CSSProperties } from "react";
 
 interface AdminSidebarProps {
   globalStyle: AdminGlobalStyleInterface;
@@ -33,10 +33,10 @@ interface AdminSidebarProps {
 
 export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
   const updateProfileState = useSelector(
-    (state: RootState) => state.admin_templates_sidebar_update_profile,
+    (state: RootState) => state.admin_templates_sidebar_update_profile
   );
   const sidebarState = useSelector(
-    (state: RootState) => state.admin_templates_sidebar,
+    (state: RootState) => state.admin_templates_sidebar
   );
   const dispatch = useDispatch();
   const { globalStyle } = props;
@@ -54,10 +54,10 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
     // Show alert box
     dispatch(
       openAlert({
-        type: 'Error',
-        title: 'Gagal merubah data',
+        type: "Error",
+        title: "Gagal merubah data",
         body: msg,
-      }),
+      })
     );
 
     // Reset update-wait state
@@ -89,14 +89,14 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
       // Nama tidak terisi (kosong)
       if (nama.length < 1) {
         // Terminate task
-        return failed('Mohon isi nama!');
+        return failed("Mohon isi nama!");
       }
 
       // Ubah updated-state
       updatedState = true;
 
       // Masukan nama ke updated-state
-      updatedData.append('nama', nama);
+      updatedData.append("nama", nama);
     }
 
     // Perubahan tlp
@@ -104,14 +104,14 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
       // No. Tlp tidak terisi (kosong)
       if (tlp.length < 1) {
         // Terminate task
-        return failed('Mohon isi No. Tlp!');
+        return failed("Mohon isi No. Tlp!");
       }
 
       // Ubah updated-state
       updatedState = true;
 
       // Masukan tlp ke updated-state
-      updatedData.append('tlp', tlp);
+      updatedData.append("tlp", tlp);
     }
 
     // Perubahan password
@@ -120,7 +120,7 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
       // Cek apakah old-password terisi
       if (oldPassword.length < 1) {
         // old-password tidak terisi, terminate task
-        return failed('Mohon isi password lama!');
+        return failed("Mohon isi password lama!");
       }
 
       let checkPassword: any;
@@ -141,10 +141,10 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
             // Terminate task and display error message
             return dispatch(
               openAlert({
-                type: 'Error',
-                title: 'Gagal merubah data',
+                type: "Error",
+                title: "Gagal merubah data",
                 body: checkPassword.message,
-              }),
+              })
             );
           }
 
@@ -160,30 +160,30 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
         // Password lama salah
         if (!result) {
           // Terminate task
-          return failed('Password lama salah!');
+          return failed("Password lama salah!");
         }
       } catch {
         // Terminate task
-        return failed('Gagal merubah data!');
+        return failed("Gagal merubah data!");
       }
 
       // Ubah updated-state
       updatedState = true;
 
       // Masukan password ke updated-state
-      updatedData.append('password', newPassword);
+      updatedData.append("password", newPassword);
     }
 
     // Perubahan foto
-    const updateStateFoto = foto.split('/static').pop();
+    const updateStateFoto = foto.split("/static").pop();
     const sidebarStateFoto = adminData.foto;
     if (updateStateFoto != sidebarStateFoto) {
       // Ubah updated-state
       updatedState = true;
 
       // Masukan foto ke updated-state
-      const fotoObj: any = $('#Admin-Sidebar-Update-Profile-Foto-Input')[0];
-      updatedData.append('foto', fotoObj.files[0]);
+      const fotoObj: any = $("#Admin-Sidebar-Update-Profile-Foto-Input")[0];
+      updatedData.append("foto", fotoObj.files[0]);
     }
 
     // Jika tidak ada perubahan, lanjutkan kirim permintaan ke server
@@ -208,10 +208,10 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
             // Terminate task and display error message
             return dispatch(
               openAlert({
-                type: 'Error',
-                title: 'Gagal merubah data',
+                type: "Error",
+                title: "Gagal merubah data",
                 body: tryUpdate.message,
-              }),
+              })
             );
           }
 
@@ -223,7 +223,7 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
         }
       } catch {
         // Terminate task
-        return failed('Gagal merubah data!');
+        return failed("Gagal merubah data!");
       }
 
       // Set a new login credentials on local storage
@@ -231,10 +231,10 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
       setLoginCredentials({ ...loginCred, data: newData });
 
       // Broadcast update-admin event
-      socket.emit('update-admin', tryUpdate);
+      socket.emit("update-admin", tryUpdate);
 
       // Jika ada perubahan tlp atau password
-      if (updatedData.get('tlp') || updatedData.get('password')) {
+      if (updatedData.get("tlp") || updatedData.get("password")) {
         // Paksa admin untuk login kembali
         prepareLogout();
       }
@@ -280,8 +280,13 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
     if (!target.files || target.files.length < 1) {
       return;
     }
+
+    // Reset old foto/ image (canceled preview)
+    dispatch(adminTemplatesSidebarUpdateProfileFoto(""));
+
     const reader = new FileReader();
     reader.onload = (evt) => {
+      // Set a new image (preview)
       dispatch(adminTemplatesSidebarUpdateProfileFoto(evt.target?.result));
     };
     reader.readAsDataURL(target.files[0]);
@@ -296,7 +301,7 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
   }
 
   function openInputFoto() {
-    const imageInput = $('#Admin-Sidebar-Update-Profile-Foto-Input')[0];
+    const imageInput = $("#Admin-Sidebar-Update-Profile-Foto-Input")[0];
     imageInput.click();
   }
 
@@ -305,15 +310,15 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
 
   // ---------------- CONTAINER & BOX CLASSES ----------------
   const containerClass: string = opened
-    ? 'Admin-Sidebar-Update-Profile Admin-Sidebar-Update-Profile-Active'
-    : 'Admin-Sidebar-Update-Profile';
+    ? "Admin-Sidebar-Update-Profile Admin-Sidebar-Update-Profile-Active"
+    : "Admin-Sidebar-Update-Profile";
   const boxClass: string = boxOpened
-    ? 'Admin-Sidebar-Update-Profile-Box Admin-Sidebar-Update-Profile-Box-Active'
-    : 'Admin-Sidebar-Update-Profile-Box';
+    ? "Admin-Sidebar-Update-Profile-Box Admin-Sidebar-Update-Profile-Box-Active"
+    : "Admin-Sidebar-Update-Profile-Box";
 
   // ---------------- FOTO STYLES ----------------
   const { foto } = updateProfileState;
-  const fotoBg: string = foto.length > 0 ? `url(${foto})` : '';
+  const fotoBg: string = foto.length > 0 ? `url(${foto})` : "none";
   const fotoStyle: CSSProperties = { backgroundImage: fotoBg };
 
   // ---------------- HEADER STYLES ----------------
