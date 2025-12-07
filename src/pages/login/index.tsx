@@ -1,14 +1,14 @@
-import { openAlert } from '../../libs/redux/reducers/components.alert.slice';
-import type { RootState } from '../../libs/redux/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, type CSSProperties } from 'react';
-import { JSONPost } from '../../libs/requests';
-import { Navigate } from 'react-router-dom';
+import { openAlert } from "../../libs/redux/reducers/components.alert.slice";
+import type { RootState } from "../../libs/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, type CSSProperties } from "react";
+import { JSONPost } from "../../libs/requests";
+import { Navigate } from "react-router-dom";
 
 import {
   rootRemoveLoading,
   rootOpenLoading,
-} from '../../libs/redux/reducers/root.slice';
+} from "../../libs/redux/reducers/root.slice";
 
 import {
   finishWaitLogin,
@@ -16,19 +16,19 @@ import {
   updateBgUrl,
   waitLogin,
   login,
-} from '../../libs/redux/reducers/login.slice';
-import { Log, Warn } from '../../libs/console';
-import { findParams } from '../../libs/url';
-import './styles/login.styles.main.scss';
-import { serverUrl } from '../../App';
+} from "../../libs/redux/reducers/login.slice";
+import { Log, Warn } from "../../libs/console";
+import { findParams } from "../../libs/url";
+import "./styles/login.styles.main.scss";
+import { serverUrl } from "../../App";
 import {
   setLoginCredentials,
   getUserData,
   getLoginCredentials,
   getAuthProfile,
   refreshToken,
-} from '../../libs/credentials';
-import $ from 'jquery';
+} from "../../libs/credentials";
+import $ from "jquery";
 
 export default function Login() {
   const loginState = useSelector((state: RootState) => state.login);
@@ -49,10 +49,10 @@ export default function Login() {
     // Show alert box
     dispatch(
       openAlert({
-        type: 'Error',
-        title: 'Gagal Masuk',
+        type: "Error",
+        title: "Gagal Masuk",
         body: msg,
-      }),
+      })
     );
 
     // Close from login-wait state
@@ -66,18 +66,18 @@ export default function Login() {
     // Set login wait
     dispatch(waitLogin());
 
-    const tlp: any = $('.login #tlp').val();
-    const pass: any = $('.login #pass').val();
+    const tlp: any = $(".login #tlp").val();
+    const pass: any = $(".login #pass").val();
 
     // No data is presented
     if (tlp.length < 1 || pass.length < 1) {
       // Terminate task
-      return failed('Mohon isi seluruh data');
+      return failed("Mohon isi seluruh data");
     }
 
     // Persiapan login
     try {
-      const tryLogin = await JSONPost('/api/auth', {
+      const tryLogin = await JSONPost("/api/auth", {
         body: JSON.stringify({ tlp, pass }),
       });
       // ---------------------------------------------------------------------------
@@ -101,29 +101,29 @@ export default function Login() {
       // No user data is founded
       if (!userData) {
         // Terminate task and display the error message
-        return failed('Data user tidak ditemukan');
+        return failed("Data user tidak ditemukan");
       }
 
-      Log('Login success!');
+      Log("Login success!");
+
+      // Re-open loading animation
+      Log("Re-open loading animation");
+      dispatch(rootOpenLoading());
 
       // Create login credentials on local storage
       const loginData = { ...tryLogin, data: userData };
       setLoginCredentials(loginData);
 
-      // Re-open loading animation
-      Log('Re-open loading animation');
-      dispatch(rootOpenLoading());
-
       // Set login data
-      Log('Set is-login & login-role state');
+      Log("Set is-login & login-role state");
       dispatch(login(tryLogin.role));
 
       // Close from login-wait state
-      Log('Reset login-wait state');
+      Log("Reset login-wait state");
       dispatch(finishWaitLogin());
 
       // Reset ready state
-      Log('Reset login-ready state');
+      Log("Reset login-ready state");
       dispatch(setLoginReady(false));
     } catch (error) {
       // Terminate task
@@ -142,7 +142,7 @@ export default function Login() {
     const bg = new Image();
     bg.onload = async () => {
       // Update background URL state
-      Log('Update login background');
+      Log("Update login background");
       dispatch(updateBgUrl(bgUrl));
 
       // Login token checking ...
@@ -160,7 +160,7 @@ export default function Login() {
 
         // Token expired
         else {
-          Warn('Token expired');
+          Warn("Token expired");
 
           // Refresh token
           const tokenRefreshed = await refreshToken(savedCred.data.tlp);
@@ -183,7 +183,7 @@ export default function Login() {
       dispatch(setLoginReady(true));
 
       // Dispaly progress message
-      Log('Login page is ready!');
+      Log("Login page is ready!");
 
       // Remove loading animation after 3 second
       setTimeout(() => dispatch(rootRemoveLoading()), 3000);
@@ -202,11 +202,11 @@ export default function Login() {
     const urlRole = loginState.loginRole.toLowerCase();
     let landing_url: string = `/${urlRole}`;
     // Redirect\ deep URL is presented
-    const redirect: string = findParams('redirect');
-    if (redirect.length > 0 && redirect != '/') {
+    const redirect: string = findParams("redirect");
+    if (redirect.length > 0 && redirect != "/") {
       // Only if redirect URL (root) is match with the role,
       // If not, keep landing_url as default (redirect to current role)
-      const redMatch = new RegExp(urlRole, 'g').test(urlRole);
+      const redMatch = new RegExp(urlRole, "g").test(urlRole);
       if (redMatch) {
         // Continue with requested/ redirect URL
         landing_url = redirect;
@@ -251,7 +251,7 @@ export default function Login() {
 
               {/* Forgot password */}
               <p className="forgot-password-text">
-                Lupa password?{' '}
+                Lupa password?{" "}
                 <span className="forgot-password-link">Ubah</span>
               </p>
             </form>

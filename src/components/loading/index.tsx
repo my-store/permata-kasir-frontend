@@ -1,21 +1,21 @@
-import { Riple, LifeLine } from 'react-loading-indicators';
-import type { RootState } from '../../libs/redux/store';
-import './styles/components.loading.styles.main.scss';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { serverUrl } from '../../App';
+import { Riple, LifeLine } from "react-loading-indicators";
+import type { RootState } from "../../libs/redux/store";
+import "./styles/components.loading.styles.main.scss";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { serverUrl } from "../../App";
 
 type Easing =
-  | 'ease-in'
-  | 'ease-out'
-  | 'ease-in-out'
-  | 'linear'
-  | 'cubic-bezier(0.25, 0.1, 0.25, 1.0)'
-  | 'cubic-bezier(0.42, 0.0, 1.0, 1.0)'
-  | 'cubic-bezier(0.0, 0.0, 0.58, 1.0)'
-  | 'cubic-bezier(0.42, 0.0, 0.58, 1.0)'
-  | 'linear(0, 1)'
-  | 'steps(4, end)'
+  | "ease-in"
+  | "ease-out"
+  | "ease-in-out"
+  | "linear"
+  | "cubic-bezier(0.25, 0.1, 0.25, 1.0)"
+  | "cubic-bezier(0.42, 0.0, 1.0, 1.0)"
+  | "cubic-bezier(0.0, 0.0, 0.58, 1.0)"
+  | "cubic-bezier(0.42, 0.0, 0.58, 1.0)"
+  | "linear(0, 1)"
+  | "steps(4, end)"
   | (string & {});
 
 interface LoadingInterface {
@@ -34,11 +34,11 @@ interface SmallLoadingInterface extends LoadingInterface {
 function setDefaultLoadingConfig(props: LoadingInterface): LoadingInterface {
   let { color, size, text, textColor, easing } = props;
 
-  if (!color) color = '#ffffff';
-  if (!size) size = 'medium';
+  if (!color) color = "#ffffff";
+  if (!size) size = "medium";
   if (!textColor) textColor = color;
-  if (!text) text = 'Mengambil data';
-  if (!easing) easing = 'ease-in-out';
+  if (!text) text = "Mengambil data";
+  if (!easing) easing = "ease-in-out";
 
   return { color, size, text, textColor, easing };
 }
@@ -57,7 +57,7 @@ export function FirstLoading(props: LoadingInterface) {
   let { color, size, text, textColor, easing } = setDefaultLoadingConfig(props);
 
   const rootState = useSelector((state: RootState) => state.root);
-  const [background, setBackground] = useState<string>('');
+  const [background, setBackground] = useState<string>("");
 
   function loadBg() {
     const bgUrl: string = `${serverUrl}/static/img/island-night-moon.jpg`;
@@ -70,15 +70,13 @@ export function FirstLoading(props: LoadingInterface) {
     loadBg();
   }, []);
 
-  if (background.length < 1) return null;
-
   const containerClass = rootState.isLoading
     ? `First-Loading-Container First-Loading-Container-Active`
-    : 'First-Loading-Container';
+    : "First-Loading-Container";
 
   const componentClass = rootState.isLoading
-    ? 'Loading-Component Loading-Component-Active'
-    : 'Loading-Component';
+    ? "Loading-Component Loading-Component-Active"
+    : "Loading-Component";
 
   return (
     <div
