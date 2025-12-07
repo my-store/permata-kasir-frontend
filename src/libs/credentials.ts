@@ -1,18 +1,18 @@
-import { JSONGet, JSONPost } from './requests';
-import { Error, Log, Warn } from './console';
+import { JSONGet, JSONPost } from "./requests";
+import { Error, Log, Warn } from "./console";
 
-export const cred_name: string = 'UPK.Login.Credentials';
+export const cred_name: string = "UPK.Login.Credentials";
 
 export function setLoginCredentials(data: any): void {
   // Dispay progress message
-  Log('Save login credentials');
+  Log("Save login credentials");
 
   localStorage.setItem(cred_name, JSON.stringify(data));
 }
 
 export function getLoginCredentials(): any {
   // Dispay progress message
-  Log('Find login credentials');
+  Log("Find login credentials");
 
   // Login data exist
   let jsonData: any = localStorage.getItem(cred_name);
@@ -21,14 +21,14 @@ export function getLoginCredentials(): any {
       jsonData = JSON.parse(jsonData);
     } catch {
       // Dispay error message
-      Error('Failed to parse login credentials');
+      Error("Failed to parse login credentials");
     }
   }
 
   // No login data is founded
   else {
     // Display warning message
-    Warn('No login credentials found');
+    Warn("No login credentials found");
   }
 
   return jsonData;
@@ -40,7 +40,7 @@ export function removeLoginCredentials(): void {
 
 export async function getUserData(tlp: string, loginToken: any): Promise<any> {
   // Dispay progress message
-  Log('Find user data');
+  Log("Find user data");
 
   let userData: any = null;
   const getProfileURL: string = `/api/${loginToken.role.toLowerCase()}/${tlp}`;
@@ -58,23 +58,19 @@ export async function getUserData(tlp: string, loginToken: any): Promise<any> {
       !getUser.updatedAt
     ) {
       // Dispay warning message
-      Warn('Failed to get user data');
+      Warn("Failed to get user data");
     }
 
     // User data is fetched
     else {
-      // Ambil hanya nama, tlp, foto, createdAt dan updatedAt saja
-      userData = {
-        nama: getUser.nama,
-        tlp: getUser.tlp,
-        foto: getUser.foto,
-        createdAt: getUser.createdAt,
-        updatedAt: getUser.updatedAt,
-      };
+      // Remove from login data:
+      // 1. Password
+      const { password, ...filtered_user_data }: any = getUser;
+      userData = { ...filtered_user_data };
     }
   } catch (error) {
     // Dispay error message
-    Error('Failed to get user data');
+    Error("Failed to get user data");
   }
 
   return userData;
@@ -82,12 +78,12 @@ export async function getUserData(tlp: string, loginToken: any): Promise<any> {
 
 export async function getAuthProfile(access_token: string): Promise<any> {
   // Dispay progress message
-  Log('Get auth profile');
+  Log("Get auth profile");
 
   let profile: any = null;
   try {
     // Melakukan pengecekan ke server apakah token masih aktif
-    const getProfile = await JSONGet('/api/auth', {
+    const getProfile = await JSONGet("/api/auth", {
       headers: { Authorization: `Bearer ${access_token}` },
     });
     const { iat, exp, sub, role } = getProfile;
@@ -104,8 +100,8 @@ export async function getAuthProfile(access_token: string): Promise<any> {
     // role = User/Admin/Kasir
     if (!iat || !exp || !sub || !role) {
       // Dispay warning message
-      Warn('Failed to get auth profile');
-      Warn('Expected response: \n 1. iat \n 2. exp \n 3. sub \n 4. role');
+      Warn("Failed to get auth profile");
+      Warn("Expected response: \n 1. iat \n 2. exp \n 3. sub \n 4. role");
     }
 
     // Auth profile is presented
@@ -114,7 +110,7 @@ export async function getAuthProfile(access_token: string): Promise<any> {
     }
   } catch {
     // Dispay error message
-    Error('Failed to get auth profile');
+    Error("Failed to get auth profile");
   }
 
   return profile;
@@ -122,12 +118,12 @@ export async function getAuthProfile(access_token: string): Promise<any> {
 
 export async function refreshToken(tlp: string): Promise<boolean> {
   // Dispay progress message
-  Log('Refreshing token');
+  Log("Refreshing token");
 
   let tokenRefreshed: any = false;
   try {
     // Melakukan permintaan ke server untuk dibuatkan token baru
-    const refreshedToken = await JSONPost('/api/auth/refresh', {
+    const refreshedToken = await JSONPost("/api/auth/refresh", {
       body: JSON.stringify({ tlp }),
     });
     // Jika refresh token berhasil dibuat, maka response darai server
@@ -140,8 +136,8 @@ export async function refreshToken(tlp: string): Promise<boolean> {
     // Permintaan token baru ditolak atau terjadi error pada server
     if (!refreshedToken.access_token || !refreshedToken.role) {
       // Dispay warning message
-      Warn('Token refresh failed');
-      Warn('Expected response: \n 1. access_token \n 2. role');
+      Warn("Token refresh failed");
+      Warn("Expected response: \n 1. access_token \n 2. role");
     }
 
     // Token is refreshsed
@@ -152,7 +148,7 @@ export async function refreshToken(tlp: string): Promise<boolean> {
       // No user data is found
       if (!userData) {
         // Dispay error message
-        Error('Token refresh failed');
+        Error("Token refresh failed");
       }
 
       //   Token refresh success
@@ -171,11 +167,11 @@ export async function refreshToken(tlp: string): Promise<boolean> {
     }
   } catch {
     // Dispay error message
-    Error('Token refresh failed');
+    Error("Token refresh failed");
   }
 
   // Dispay progress message
-  Log('Token refresh succeeded');
+  Log("Token refresh succeeded");
 
   return tokenRefreshed;
 }

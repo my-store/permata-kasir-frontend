@@ -77,6 +77,9 @@ export default function UserInsert() {
     // Get login data
     const { access_token, data } = getLoginCredentials();
 
+    // Admin ID
+    formData.append("adminId", data.id);
+
     // Insert data
     const req = await FormPost("/api/user", {
       headers: { Authorization: `Bearer ${access_token}` },
