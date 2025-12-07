@@ -121,7 +121,7 @@ function AdminList() {
       <div className="Admin-List-Header">
         <p className="Admin-List-Header-Text">Daftar Admin</p>
         <div className="Admin-List-Header-Button-Container">
-          <button onClick={() => navigate("/admin/insert")}>Input</button>
+          <button onClick={() => navigate("/admin/admin/insert")}>Input</button>
           <p className="Admin-Navbar-Link-Sepataror">.</p>
           <button onClick={() => dispatch(adminConfigAdminOpened(true))}>
             Pengaturan
