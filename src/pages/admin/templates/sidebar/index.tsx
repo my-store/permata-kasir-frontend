@@ -140,14 +140,6 @@ export default function AdminSidebar(props: AdminSidebarProps) {
           Beranda
         </button>
 
-        {/* Admin */}
-        <button
-          onClick={() => navigateTo("/admin/admin", "admin-sidebar-admin-list")}
-          className="admin-sidebar-admin-list"
-        >
-          Admin
-        </button>
-
         {/* User */}
         <button
           onClick={() => navigateTo("/admin/user", "admin-sidebar-user-list")}
@@ -171,11 +163,7 @@ export default function AdminSidebar(props: AdminSidebarProps) {
         >
           Laba Rugi & Neraca
         </button>
-        <button>Bank Ops BKK</button>
-        <button>Bank Jateng</button>
-        <button>Modal</button>
         <button>Operasional</button>
-        <button>Micro Finance</button>
 
         {/* Logout */}
         <button onClick={prepareLogout}>Logout</button>

@@ -6,7 +6,6 @@ import AdminUserInsertReducer from "./reducers/admin/user.insert.slice";
 import AdminInsertReducer from "./reducers/admin/admin.insert.slice";
 import AdminConfigReducer from "./reducers/admin/admin.config.slice";
 import UserSidebarReducer from "./reducers/user/user.sidebar.slice";
-import AdminListReducer from "./reducers/admin/admin.list.slice";
 import AlertReducer from "./reducers/components.alert.slice";
 import SocketReducer from "./reducers/socket.slice";
 import { configureStore } from "@reduxjs/toolkit";
@@ -29,7 +28,6 @@ export const store = configureStore({
 
     admin_config: AdminConfigReducer,
     admin_insert: AdminInsertReducer,
-    admin_list: AdminListReducer,
     admin_user_list: AdminUserListReducer,
     admin_user_insert: AdminUserInsertReducer,
     admin_templates_sidebar: AdminSidebarReducer,
