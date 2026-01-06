@@ -43,7 +43,7 @@ export async function getUserData(tlp: string, loginToken: any): Promise<any> {
   Log("Find user data");
 
   let userData: any = null;
-  const getProfileURL: string = `/api/${loginToken.role.toLowerCase()}/${tlp}`;
+  const getProfileURL: string = `/api/v1/${loginToken.role.toLowerCase()}/${tlp}`;
 
   try {
     const getUser = await JSONGet(getProfileURL, {
@@ -83,7 +83,7 @@ export async function getAuthProfile(access_token: string): Promise<any> {
   let profile: any = null;
   try {
     // Melakukan pengecekan ke server apakah token masih aktif
-    const getProfile = await JSONGet("/api/auth", {
+    const getProfile = await JSONGet("/api/v1/auth", {
       headers: { Authorization: `Bearer ${access_token}` },
     });
     const { iat, exp, sub, role } = getProfile;
@@ -123,7 +123,7 @@ export async function refreshToken(tlp: string): Promise<boolean> {
   let tokenRefreshed: any = false;
   try {
     // Melakukan permintaan ke server untuk dibuatkan token baru
-    const refreshedToken = await JSONPost("/api/auth/refresh", {
+    const refreshedToken = await JSONPost("/api/v1/auth/refresh", {
       body: JSON.stringify({ tlp }),
     });
     // Jika refresh token berhasil dibuat, maka response darai server
