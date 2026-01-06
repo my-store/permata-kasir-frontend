@@ -126,7 +126,7 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
       let checkPassword: any;
       try {
         // Gunakan tlp lama (menghindari jika tlp telah berubah)
-        checkPassword = await JSONPost(`/api/admin/verify-password/${tlp}`, {
+        checkPassword = await JSONPost(`/api/v1/admin/verify-password/${tlp}`, {
           headers: { Authorization: `Bearer ${loginCred.access_token}` },
           body: JSON.stringify({ password: oldPassword }),
         });
@@ -191,7 +191,7 @@ export default function AdminSidebarUpdateProfile(props: AdminSidebarProps) {
       let tryUpdate: any;
       try {
         // Gunakan tlp lama (menghindari jika tlp telah berubah)
-        tryUpdate = await FormPatch(`/api/admin/${tlp}`, {
+        tryUpdate = await FormPatch(`/api/v1/admin/${tlp}`, {
           headers: {
             Authorization: `Bearer ${loginCred.access_token}`,
           },

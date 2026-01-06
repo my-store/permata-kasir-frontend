@@ -66,7 +66,7 @@ export default function AdminUserList() {
     const { maxDisplay } = config.list;
 
     // --------------- URL ---------------
-    let url: string = `/api/user/?take=${maxDisplay}`;
+    let url: string = `/api/v1/user/?take=${maxDisplay}`;
 
     // --------------- ORDER STATEMENT ---------------
     if (config.list.shortByNew) {
@@ -133,7 +133,7 @@ export default function AdminUserList() {
     // Mengambil login credentials pada local-storage
     const { access_token, data } = getLoginCredentials();
 
-    const url: string = `/api/user/${tlp}`;
+    const url: string = `/api/v1/user/${tlp}`;
 
     // Kirim request ke server (PATCH)
     const req = await JSONPatch(url, {

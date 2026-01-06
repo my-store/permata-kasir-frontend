@@ -77,7 +77,7 @@ export default function Login() {
 
     // Persiapan login
     try {
-      const tryLogin = await JSONPost("/api/auth", {
+      const tryLogin = await JSONPost("/api/v1/auth", {
         body: JSON.stringify({ tlp, pass }),
       });
       // ---------------------------------------------------------------------------

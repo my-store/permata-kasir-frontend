@@ -40,7 +40,7 @@ export function AdminOnlineListTrigger() {
     };
 
     // --------------- ADMIN URL ---------------
-    let admin_url: string = "/api/admin";
+    let admin_url: string = "/api/v1/admin";
 
     /* ------------------- WHERE STATEMENT -------------------
     | 1. Except me
@@ -54,7 +54,7 @@ export function AdminOnlineListTrigger() {
     const admin = await JSONGet(admin_url, req_conf);
 
     // --------------- USER URL ---------------
-    let user_url: string = "/api/user";
+    let user_url: string = "/api/v1/user";
 
     /* ------------------- WHERE STATEMENT -------------------
     | 1. Don't show blocked users)

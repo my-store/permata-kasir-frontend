@@ -81,7 +81,7 @@ export default function UserInsert() {
     formData.append("adminId", data.id);
 
     // Insert data
-    const req = await FormPost("/api/user", {
+    const req = await FormPost("/api/v1/user", {
       headers: { Authorization: `Bearer ${access_token}` },
       body: formData,
     });
