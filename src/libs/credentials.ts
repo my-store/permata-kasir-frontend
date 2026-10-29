@@ -116,15 +116,23 @@ export async function getAuthProfile(access_token: string): Promise<any> {
   return profile;
 }
 
-export async function refreshToken(tlp: string): Promise<boolean> {
+export async function refreshToken(data: {
+  data: {
+    tlp: string;
+  };
+  access_token: string;
+  refresh_token: string;
+}): Promise<boolean> {
   // Dispay progress message
   Log("Refreshing token");
 
   let tokenRefreshed: any = false;
+  const { tlp } = data.data;
+  const { access_token, refresh_token } = data;
   try {
     // Melakukan permintaan ke server untuk dibuatkan token baru
     const refreshedToken = await JSONPost("/api/v1/auth/refresh", {
-      body: JSON.stringify({ tlp }),
+      body: JSON.stringify({ tlp, access_token, refresh_token }),
     });
     // Jika refresh token berhasil dibuat, maka response darai server
     // adalah sama dengan ketika login yaitu berisi:

@@ -29,6 +29,7 @@ import {
   refreshToken,
 } from "../../libs/credentials";
 import $ from "jquery";
+import { convertToHex } from "../../libs/string";
 
 export default function Login() {
   const loginState = useSelector((state: RootState) => state.login);
@@ -52,7 +53,7 @@ export default function Login() {
         type: "Error",
         title: "Gagal Masuk",
         body: msg,
-      })
+      }),
     );
 
     // Close from login-wait state
@@ -67,19 +68,41 @@ export default function Login() {
     dispatch(waitLogin());
 
     const tlp: any = $(".login #tlp").val();
-    const pass: any = $(".login #pass").val();
+    const password: any = $(".login #password").val();
 
     // No data is presented
-    if (tlp.length < 1 || pass.length < 1) {
+    if (tlp.length < 1 || password.length < 1) {
       // Terminate task
       return failed("Mohon isi seluruh data");
     }
 
+    // Backend security
+    const app_name: string = "Permata-Kasir-Client-WebApp";
+
+    // Update 29 Oct 2026
+    // Add login body encryption
+
+    const data = JSON.stringify({
+      tlp,
+      password,
+      app_name,
+    });
+
+    // Reverse json string
+    const reversed_data = data.split("").reverse().join("");
+
+    // Convert reversed json into base64
+    const b64_data = window.btoa(reversed_data);
+
+    // Convert base64 to hex
+    const hex_data = convertToHex(b64_data);
+
+    // Body data
+    const body = JSON.stringify({ data: hex_data });
+
     // Persiapan login
     try {
-      const tryLogin = await JSONPost("/api/v1/auth", {
-        body: JSON.stringify({ tlp, pass }),
-      });
+      const tryLogin = await JSONPost("/api/v1/auth", { body });
       // ---------------------------------------------------------------------------
       // JIKA DATA LOGIN BENAR
       // ---------------------------------------------------------------------------
@@ -163,7 +186,13 @@ export default function Login() {
           Warn("Token expired");
 
           // Refresh token
-          const tokenRefreshed = await refreshToken(savedCred.data.tlp);
+          const tokenRefreshed = await refreshToken({
+            data: {
+              tlp: savedCred.data.tlp,
+            },
+            access_token: savedCred.access_token,
+            refresh_token: savedCred.refresh_token,
+          });
 
           // Token is refreshed
           if (tokenRefreshed) {
@@ -237,13 +266,14 @@ export default function Login() {
               </div>
               <div className="login-form-group">
                 <label>Password</label>
-                <input type="password" id="pass" />
+                <input type="password" id="password" />
               </div>
               {/* Form buttons */}
               <div className="login-form-buttons">
                 <button
                   className="login-form-button-submit"
                   onClick={prepareLogin}
+                  disabled={loginWait}
                 >
                   Masuk
                 </button>
